@@ -1,36 +1,9 @@
 local M = {}
 local fn = vim.fn
-local hl = require('highlights')
-local icons = require('icons')
-
-M.options = {
-    no_name = '[No Name]',
-    modified_icon = '',
-    separator = '▐',
-    space = 3,
-    color_all_icons = false,
-    always_show_tabs = false
-}
-
-local function find_affixes(modified)
-    local prefix = string.rep(' ', M.options.space)
-    local suffix
-    if modified == 1 then
-        suffix = string.rep(' ', M.options.space - fn.strchars(M.options.modified_icon))
-    else
-        suffix = string.rep(' ', M.options.space)
-    end
-    return prefix, suffix
-end
-
-local function get_modified_icon(modified)
-    if modified == 1 then
-        return hl.get_hl_item(hl.string_active, M.options.modified_icon)
-    else
-        return ''
-    end
-end
-
+local hl = require('tabline.highlights')
+local icons = require('tabline.icons')
+local opt = require('tabline.config').options
+local utils = require('tabline.utils')
 
 local function tabline(options)
     local s = ''
@@ -40,50 +13,37 @@ local function tabline(options)
         local bufnr = buflist[winnr]
         local bufname = fn.bufname(bufnr)
         local bufmodified = fn.getbufvar(bufnr, "&mod")
-        local filename = fn.fnamemodify(bufname, ':t')
+        local filename = utils.find_filename(bufname)
         local extension = fn.fnamemodify(bufname, ':e')
-        local devicon = icons.get_icon(filename, extension, true)
-        local separator = ''
-        local prefix, suffix = find_affixes(bufmodified)
-        local modified_icon = get_modified_icon(bufmodified)
-        local padding = ' '
-
-        -- Use no-name option if bufname is empty
-        if bufname == '' then
-            filename = options.no_name
-        end
+        local prefix, suffix = utils.find_affixes()
+        local left_separator, right_separator, devicon, close_icon, modified_icon
 
         -- Make clickable
         s = s .. '%' .. index .. 'T'
 
-        -- Get items based on selected tab or not
-        if index == fn.tabpagenr() then
-            filename = hl.get_hl_item(hl.string_active, filename)
-            separator = hl.get_hl_item(hl.separator_active, options.separator)
-        else
-            separator = hl.get_hl_item(hl.separator_inactive, options.separator)
-            if not options.color_all_icons then
-                devicon = icons.get_icon(filename, extension, false)
-            end
-        end
-        filename = filename .. padding
+        filename = hl.get_hl_item(index, hl.filename, filename)
+        left_separator = hl.get_hl_item(index, hl.separator, options.separator)
+        right_separator = utils.get_right_separator(index, hl.separator, options.separator)
+        prefix = hl.get_hl_item(index, hl.padding, prefix)
+        suffix = hl.get_hl_item(index, hl.padding, suffix)
+        devicon = icons.get_devicon(index, filename, extension, options.color_all_icons)
+        modified_icon = icons.get_modified_icon(index, bufmodified, options.modified_icon)
+        close_icon = icons.get_close_icon(index, bufmodified, options.close_icon)
 
         -- Assemble tabline
-        s = s .. separator .. prefix .. devicon .. filename .. modified_icon .. suffix
-
+        s = s .. left_separator .. prefix .. devicon .. filename .. suffix .. modified_icon .. close_icon .. right_separator
     end
-    s = s .. '%#TabLineFill#'
     return s
 end
 
 function M.setup(user_options)
-    M.options = vim.tbl_extend('force', M.options, user_options)
+    opt = vim.tbl_extend('force', opt, user_options)
 
     function _G.nvim_tabline()
-        return tabline(M.options)
+        return tabline(opt)
     end
 
-    if M.options.always_show_tabs then
+    if opt.always_show_tabs then
         vim.o.showtabline = 2
     else
         vim.o.showtabline = 1
