@@ -9,7 +9,7 @@ Simple tabline in lua
 ```Lua
 -- using packer.nvim
 use {'seblj/nvim-tabline',
-  requires = {'kyazdani42/nvim-web-devicons'}
+    requires = {'kyazdani42/nvim-web-devicons'}
 }
 ```
 
@@ -17,27 +17,61 @@ use {'seblj/nvim-tabline',
 
 ```Lua
 require('tabline').setup{
-  no_name = '[No Name]',                    -- Name for buffers with no name
-  modified_icon = '',                      -- Icon for showing modified buffer
-  close_icon = '',                         -- Icon for closing tab with mouse
-  separator = "▌",                          -- Separator icon on the left side
-  space = 3,                                -- Prefix and suffix space
-  color_all_icons = false,                  -- Color devicons in active and inactive tabs
-  always_show_tabs = false,                 -- Always show tabline
-  right_separator = false,                  -- Show right separator on the last tab
-  colors = {
-      active_background = '#1c1c1c',        -- Color of background in active tab
-      inactive_background = '#121212',      -- Color of background in inactive tab
-      active_filename = '#eeeeee',          -- Color of filename in active tab
-      inactive_filename = '#7f8490',        -- Color of filename in inactive tab
-      active_sep = '#ff6077',               -- Color of left separator in active tab
-      inactive_sep = '#7f8490',             -- Color of separator in inactive tab
-      active_mod_icon = '#eeeeee',          -- Color of modified_icon in active tab
-      inactive_mod_icon = '#7f8490',        -- Color of modified_icon in inactive tab
-      active_close_icon = '#7f8490',        -- Color of close_icon in active tab
-      inactive_close_icon = '#7f8490',      -- Color of close_icon in inactive tab
-      inactive_devicon = '#7f8490'          -- Color of devicon in inactive tab
-    }
+    no_name = '[No Name]',                      -- Name for buffers with no name
+    modified_icon = '',                        -- Icon for showing modified buffer
+    close_icon = '',                           -- Icon for closing tab with mouse
+    separator = "▌",                            -- Separator icon on the left side
+    space = 3,                                  -- Prefix and suffix space
+    color_all_icons = false,                    -- Color devicons in active and inactive tabs
+    always_show_tabs = false,                   -- Always show tabline
+    right_separator = false,                    -- Show right separator on the last tab
+    -- highlights = {                           -- Default colors for highlights.
+    --     fill = {
+    --         guifg = M.inactive_background,
+    --         guibg = M.inactive_background
+    --     },
+    --     filename_active = {
+    --         guifg = M.active_text,
+    --         guibg = M.active_background,
+    --         gui = 'bold,italic'
+    --     },
+    --     filename_inactive = {
+    --         guifg = M.inactive_text,
+    --         guibg = M.inactive_background
+    --     },
+    --     padding_active = {
+    --         guifg = M.active_background,
+    --         guibg = M.active_background
+    --     },
+    --     padding_inactive = {
+    --         guif = M.inactive_background,
+    --         guibg = M.inactive_background
+    --     },
+    --     separator_active = {
+    --         guifg = M.active_separator,
+    --         guibg = M.active_background
+    --     },
+    --     separator_inactive = {
+    --         guifg = M.inactive_text,
+    --         guibg = M.inactive_background
+    --     },
+    --     modified_active = {
+    --         guifg = M.active_text,
+    --         guibg = M.active_background
+    --     },
+    --     modified_inactive = {
+    --         guifg = M.inactive_text,
+    --         guibg = M.inactive_background
+    --     },
+    --     close_active = {
+    --         guifg = M.active_text,
+    --         guibg = M.active_background
+    --     },
+    --     close_inactive = {
+    --         guifg = M.inactive_text,
+    --         guibg = M.inactive_background
+    --     }
+    -- }
 
 }
 ```
