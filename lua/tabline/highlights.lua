@@ -1,16 +1,8 @@
 local M = {}
 local opt = require('tabline.config').options
-local colors = opt.colors
-local active = 'Active'
-local inactive = 'Inactive'
+local highlights = opt.highlights
 
-M.filename = 'TablineFilename'
-M.padding = 'TablinePadding'
-M.separator = 'TablineSeparator'
-M.modified_icon = 'TablineModified'
-M.close_icon = 'TablineClose'
-M.fill = 'TablineFill'
-
+-- https://github.com/akinsho/nvim-bufferline.lua/blob/master/lua/bufferline/highlights.lua
 function M.set_one(name, opts)
     if opts and vim.tbl_count(opts) > 0 then
         local high = "highlight! " .. name
@@ -36,32 +28,32 @@ function M.set_one(name, opts)
     end
 end
 
-function M.get_hl_item(index, group, item)
-    if index == vim.fn.tabpagenr() then
-        group = group .. active
-    else
-        group = group .. inactive
-    end
-    return '%#'  .. group .. '#' .. item .. '%*'
+-- Highlights item with the color of group
+function M.get_item(group, item)
+    return group .. item .. '%*'
 end
 
+-- Create a highlights using name
+function M.create_hl_group(name)
+    return '%#' .. name .. '#'
+end
 
--- General
-M.set_one(M.fill, {guifg = colors.inactive_background, guibg = colors.inactive_background})
+-- Set all colors from highlights in config
+function M.set_all()
+    for name, tbl in pairs(highlights) do
+        -- Converts snake case to pascal
+        local formatted = "Tabline" .. name:gsub("_(.)", name.upper):gsub("^%l", string.upper)
+        M.set_one(formatted, tbl)
+        -- Set highlight group inside table for access when getting items
+        highlights[name]['hl'] = M.create_hl_group(formatted)
+    end
+end
 
--- Active tab
-M.set_one(M.filename .. active, {guifg = colors.active_filename, guibg = colors.active_background, gui = 'bold,italic'})
-M.set_one(M.separator .. active, {guifg = colors.active_sep, guibg = colors.active_background})
-M.set_one(M.padding .. active, {guifg = colors.acitve_background, guibg = colors.active_background})
-M.set_one(M.modified_icon .. active, {guifg = colors.active_mod_icon, guibg = colors.active_background})
-M.set_one(M.close_icon .. active, {guifg = colors.active_close_icon, guibg = colors.active_background})
+M.set_all()
 
--- Inactive tab
-M.set_one(M.filename .. inactive, {guifg = colors.inactive_filename, guibg = colors.inactive_background})
-M.set_one(M.separator .. inactive, {guifg = colors.inactive_sep, guibg = colors.inactive_background})
-M.set_one(M.padding .. inactive, {guifg = colors.inactive_background, guibg = colors.inactive_background})
-M.set_one(M.modified_icon .. inactive, {guifg = colors.inactive_mod_icon, guibg = colors.inactive_background})
-M.set_one(M.close_icon .. inactive, {guifg = colors.inactive_close_icon, guibg = colors.inactive_background})
-
+vim.cmd [[augroup TablineColors]]
+vim.cmd [[autocmd!]]
+vim.cmd [[autocmd ColorScheme * lua require('tabline.highlights').set_all()]]
+vim.cmd [[augroup END]]
 
 return M

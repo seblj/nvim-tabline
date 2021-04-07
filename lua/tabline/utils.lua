@@ -1,6 +1,6 @@
 local M = {}
 local opt = require('tabline.config').options
-local inactive = 'Inactive'
+local hl = require('tabline.highlights')
 
 function M.find_filename(bufname)
     if bufname == '' then
@@ -18,7 +18,7 @@ end
 
 function M.get_right_separator(index, group, item)
     if index == vim.fn.tabpagenr('$') and opt.right_separator then
-        return '%#' .. group .. inactive .. '#' .. item .. '%*'
+        return hl.get_item(group, item)
     else
         return ''
     end

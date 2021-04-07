@@ -21,11 +21,19 @@ local function tabline(options)
         -- Make clickable
         s = s .. '%' .. index .. 'T'
 
-        filename = hl.get_hl_item(index, hl.filename, filename)
-        left_separator = hl.get_hl_item(index, hl.separator, options.separator)
-        right_separator = utils.get_right_separator(index, hl.separator, options.separator)
-        prefix = hl.get_hl_item(index, hl.padding, prefix)
-        suffix = hl.get_hl_item(index, hl.padding, suffix)
+        if index == vim.fn.tabpagenr() then
+            filename = hl.get_item(opt.highlights.filename_active.hl, filename)
+            left_separator = hl.get_item(opt.highlights.separator_active.hl, options.separator)
+            prefix = hl.get_item(opt.highlights.padding_active.hl, prefix)
+            suffix = hl.get_item(opt.highlights.padding_active.hl, suffix)
+        else
+            filename = hl.get_item(opt.highlights.filename_inactive.hl, filename)
+            left_separator = hl.get_item(opt.highlights.separator_inactive.hl, options.separator)
+            prefix = hl.get_item(opt.highlights.padding_inactive.hl, prefix)
+            suffix = hl.get_item(opt.highlights.padding_inactive.hl, suffix)
+        end
+
+        right_separator = utils.get_right_separator(index, opt.highlights.separator_inactive.hl, options.separator)
         devicon = icons.get_devicon(index, filename, extension, options.color_all_icons)
         modified_icon = icons.get_modified_icon(index, bufmodified, options.modified_icon)
         close_icon = icons.get_close_icon(index, bufmodified, options.close_icon)
