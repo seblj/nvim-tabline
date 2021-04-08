@@ -6,12 +6,27 @@ Simple tabline in lua
 
 ## Installation
 
+### packer.nvim
 ```Lua
--- using packer.nvim
 use {'seblj/nvim-tabline',
     requires = {'kyazdani42/nvim-web-devicons'}
 }
 ```
+
+### vim-plug
+```Vim
+call plug#begin()
+
+Plug 'seblj/nvim-tabline'
+Plug 'kyazdani42/nvim-web-devicons'             " Optional
+
+call plug#end()
+```
+
+## Requirements
+- Neovim 0.5+ (_nightly_)
+- A patched font (see [nerd fonts](https://github.com/ryanoasis/nerd-fonts))
+- Termguicolors should be set
 
 ## Setup
 
