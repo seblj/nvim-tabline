@@ -11,12 +11,12 @@ end
 
 -- Return icon with fg color
 function M.get_devicon(index, name, extension, color_all)
-    local icon, icon_hl = web.get_icon(name, extension, { default = true })
-    local active = 'Active'
-    local inactive = 'Inactive'
-
-    icon = icon .. ' '
     if ok then
+        local icon, icon_hl = web.get_icon(name, extension, { default = true })
+        local active = 'Active'
+        local inactive = 'Inactive'
+
+        icon = icon .. ' '
         local color = M.get_attr(icon_hl, 'foreground')
         hl.set_one(icon_hl .. active, {guifg = color, guibg = opt.active_background})
         if not color_all then
@@ -25,9 +25,9 @@ function M.get_devicon(index, name, extension, color_all)
             hl.set_one(icon_hl .. inactive, {guifg = color, guibg = opt.inactive_background})
         end
         if index == vim.fn.tabpagenr() then
-            icon_hl = hl.create_hl_group(icon_hl .. 'Active')
+            icon_hl = hl.create_hl_group(icon_hl .. active)
         else
-            icon_hl = hl.create_hl_group(icon_hl .. 'Inactive')
+            icon_hl = hl.create_hl_group(icon_hl .. inactive)
         end
         return hl.get_item(icon_hl, icon)
     else
