@@ -4,6 +4,11 @@ Simple tabline in lua
 
 ![ezgif com-video-to-gif](https://user-images.githubusercontent.com/5160701/112813955-11465380-907f-11eb-93ae-b828ccb23a76.gif)
 
+## Requirements
+- Neovim 0.5+ (_nightly_)
+- A patched font (see [nerd fonts](https://github.com/ryanoasis/nerd-fonts))
+- Termguicolors should be set
+
 ## Installation
 
 ### packer.nvim
@@ -22,11 +27,6 @@ Plug 'kyazdani42/nvim-web-devicons'             " Optional
 
 call plug#end()
 ```
-
-## Requirements
-- Neovim 0.5+ (_nightly_)
-- A patched font (see [nerd fonts](https://github.com/ryanoasis/nerd-fonts))
-- Termguicolors should be set
 
 ## Setup
 
