@@ -10,19 +10,19 @@ function M.get_attr(group, attr)
 end
 
 -- Return icon with fg color
-function M.get_devicon(index, name, extension, color_all)
+function M.get_devicon(index, filename, extension)
     if ok then
-        local icon, icon_hl = web.get_icon(name, extension, { default = true })
+        local icon, icon_hl = web.get_icon(filename, extension, { default = true })
         local active = 'Active'
         local inactive = 'Inactive'
 
         icon = icon .. ' '
         local color = M.get_attr(icon_hl, 'foreground')
-        hl.set_one(icon_hl .. active, {guifg = color, guibg = opt.active_background})
-        if not color_all then
-            hl.set_one(icon_hl .. inactive, {guifg = opt.inactive_text, guibg = opt.inactive_background})
+        hl.highlight(icon_hl .. active, {guifg = color, guibg = opt.active_background})
+        if not opt.color_all_icons then
+            hl.highlight(icon_hl .. inactive, {guifg = hl.c.inactive_text, guibg = hl.c.inactive_bg})
         else
-            hl.set_one(icon_hl .. inactive, {guifg = color, guibg = opt.inactive_background})
+            hl.highlight(icon_hl .. inactive, {guifg = color, guibg = opt.inactive_bg})
         end
         if index == vim.fn.tabpagenr() then
             icon_hl = hl.create_hl_group(icon_hl .. active)
@@ -38,9 +38,9 @@ end
 function M.get_modified_icon(index, modified, icon)
     if modified == 1 then
         if index == vim.fn.tabpagenr() then
-            return hl.get_item(opt.options.highlights.modified_active.hl, icon .. ' ')
+            return hl.get_item('TablineModifiedActive', icon .. ' ')
         else
-            return hl.get_item(opt.options.highlights.modified_inactive.hl, icon .. ' ')
+            return hl.get_item('TablineModifiedInactive', icon .. ' ')
         end
     else
         return ''
@@ -50,9 +50,9 @@ end
 function M.get_close_icon(index, modified, close_icon)
     local icon
     if index == vim.fn.tabpagenr() then
-        icon = hl.get_item(opt.options.highlights.close_active.hl, close_icon .. ' ')
+        icon = hl.get_item('TablineCloseActive', close_icon .. ' ')
     else
-        icon = hl.get_item(opt.options.highlights.close_inactive.hl, close_icon .. ' ')
+        icon = hl.get_item('TablineCloseInactive', close_icon .. ' ')
     end
     if modified == 1 then
         return ''

@@ -16,9 +16,9 @@ function M.find_affixes()
     return prefix, suffix
 end
 
-function M.get_right_separator(index, group, item)
+function M.get_right_separator(index, item)
     if index == vim.fn.tabpagenr('$') and opt.right_separator then
-        return hl.get_item(group, item)
+        return hl.get_item('TablineSeparatorInactive', item)
     else
         return ''
     end

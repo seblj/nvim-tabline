@@ -22,19 +22,19 @@ local function tabline(options)
         s = s .. '%' .. index .. 'T'
 
         if index == vim.fn.tabpagenr() then
-            filename = hl.get_item(opt.highlights.filename_active.hl, filename)
-            left_separator = hl.get_item(opt.highlights.separator_active.hl, options.separator)
-            prefix = hl.get_item(opt.highlights.padding_active.hl, prefix)
-            suffix = hl.get_item(opt.highlights.padding_active.hl, suffix)
+            filename = hl.get_item('TablineFilenameActive', filename)
+            left_separator = hl.get_item('TablineSeparatorActive', options.separator)
+            prefix = hl.get_item('TablinePaddingActive', prefix)
+            suffix = hl.get_item('TablinePaddingActive', suffix)
         else
-            filename = hl.get_item(opt.highlights.filename_inactive.hl, filename)
-            left_separator = hl.get_item(opt.highlights.separator_inactive.hl, options.separator)
-            prefix = hl.get_item(opt.highlights.padding_inactive.hl, prefix)
-            suffix = hl.get_item(opt.highlights.padding_inactive.hl, suffix)
+            filename = hl.get_item('TablineFilenameInactive', filename)
+            left_separator = hl.get_item('TablineSeparatorInactive', options.separator)
+            prefix = hl.get_item('TablinePaddingInactive', prefix)
+            suffix = hl.get_item('TablinePaddingInactive', suffix)
         end
 
-        right_separator = utils.get_right_separator(index, opt.highlights.separator_inactive.hl, options.separator)
-        devicon = icons.get_devicon(index, filename, extension, options.color_all_icons)
+        right_separator = utils.get_right_separator(index, options.separator)
+        devicon = icons.get_devicon(index, filename, extension)
         modified_icon = icons.get_modified_icon(index, bufmodified, options.modified_icon)
         close_icon = icons.get_close_icon(index, bufmodified, options.close_icon)
 
