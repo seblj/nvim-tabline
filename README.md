@@ -32,61 +32,29 @@ call plug#end()
 
 ```Lua
 require('tabline').setup{
-    no_name = '[No Name]',                      -- Name for buffers with no name
-    modified_icon = '',                        -- Icon for showing modified buffer
-    close_icon = '',                           -- Icon for closing tab with mouse
-    separator = "▌",                            -- Separator icon on the left side
-    space = 3,                                  -- Prefix and suffix space
-    color_all_icons = false,                    -- Color devicons in active and inactive tabs
-    always_show_tabs = false,                   -- Always show tabline
-    right_separator = false,                    -- Show right separator on the last tab
-    -- highlights = {                           -- Default colors for highlights.
-    --     fill = {
-    --         guifg = M.inactive_background,
-    --         guibg = M.inactive_background
-    --     },
-    --     filename_active = {
-    --         guifg = M.active_text,
-    --         guibg = M.active_background,
-    --         gui = 'bold,italic'
-    --     },
-    --     filename_inactive = {
-    --         guifg = M.inactive_text,
-    --         guibg = M.inactive_background
-    --     },
-    --     padding_active = {
-    --         guifg = M.active_background,
-    --         guibg = M.active_background
-    --     },
-    --     padding_inactive = {
-    --         guif = M.inactive_background,
-    --         guibg = M.inactive_background
-    --     },
-    --     separator_active = {
-    --         guifg = M.active_separator,
-    --         guibg = M.active_background
-    --     },
-    --     separator_inactive = {
-    --         guifg = M.inactive_text,
-    --         guibg = M.inactive_background
-    --     },
-    --     modified_active = {
-    --         guifg = M.active_text,
-    --         guibg = M.active_background
-    --     },
-    --     modified_inactive = {
-    --         guifg = M.inactive_text,
-    --         guibg = M.inactive_background
-    --     },
-    --     close_active = {
-    --         guifg = M.active_text,
-    --         guibg = M.active_background
-    --     },
-    --     close_inactive = {
-    --         guifg = M.inactive_text,
-    --         guibg = M.inactive_background
-    --     }
-    -- }
-
+    no_name = '[No Name]',    -- Name for buffers with no name
+    modified_icon = '',      -- Icon for showing modified buffer
+    close_icon = '',         -- Icon for closing tab with mouse
+    separator = "▌",          -- Separator icon on the left side
+    padding = 3,              -- Prefix and suffix space
+    color_all_icons = false,  -- Color devicons in active and inactive tabs
+    always_show_tabs = false, -- Always show tabline
+    right_separator = false,  -- Show right separator on the last tab
 }
+```
+
+## Highlight groups
+
+```
+TabLine
+TabLineSel
+TabLineFill
+TablineSeparatorActive
+TablineSeparatorInactive
+TablinePaddingActive
+TablinePaddingInactive
+TablineModifiedActive
+TablineModifiedInactive
+TablineCloseActive
+TablineCloseInactive
 ```
