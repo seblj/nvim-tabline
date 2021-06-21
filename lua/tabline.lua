@@ -20,14 +20,14 @@ local tabline = function(options)
         local active = index == vim.fn.tabpagenr()
 
         local tabline_items = {
-            utils.get_item('TablineSeparator', options.separator, active),   -- Left separator
-            utils.get_item('TablinePadding', padding, active),               -- Padding
+            utils.get_item('TabLineSeparator', options.separator, active),   -- Left separator
+            utils.get_item('TabLinePadding', padding, active),               -- Padding
             icons.get_devicon(active, filename, extension),                  -- DevIcon
-            utils.get_item('Tabline', filename, active, true),               -- Filename
-            utils.get_item('TablinePadding', padding, active),               -- Padding
-            icons.get_modified_icon('TablineModified', active, bufmodified), -- Modified icon
-            icons.get_close_icon('TablineClose', index, bufmodified),        -- Closing icon
-            icons.get_right_separator('TablineSeparator', index),            -- Rigth separator
+            utils.get_item('TabLine', filename, active, true),               -- Filename
+            utils.get_item('TabLinePadding', padding, active),               -- Padding
+            icons.get_modified_icon('TabLineModified', active, bufmodified), -- Modified icon
+            icons.get_close_icon('TabLineClose', index, bufmodified),        -- Closing icon
+            icons.get_right_separator('TabLineSeparator', index),            -- Rigth separator
         }
         s = s .. table.concat(tabline_items)
     end

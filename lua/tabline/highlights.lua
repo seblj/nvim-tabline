@@ -45,14 +45,14 @@ M.c = {
 }
 
 M.highlight_all({
-    { 'TablineSeparatorActive',   { guifg = M.c.active_sep,    guibg = M.c.active_bg } },
-    { 'TablineSeparatorInactive', { guifg = M.c.inactive_text, guibg = M.c.inactive_bg } },
-    { 'TablinePaddingActive',     { guifg = M.c.active_bg,     guibg = M.c.active_bg } },
-    { 'TablinePaddingInactive',   { guifg = M.c.inactive_bg,   guibg = M.c.inactive_bg } },
-    { 'TablineModifiedActive',    { guifg = M.c.active_text,   guibg = M.c.active_bg } },
-    { 'TablineModifiedInactive',  { guifg = M.c.inactive_text, guibg = M.c.inactive_bg } },
-    { 'TablineCloseActive',       { guifg = M.c.active_text,   guibg = M.c.active_bg } },
-    { 'TablineCloseInactive',     { guifg = M.c.inactive_text, guibg = M.c.inactive_bg } },
+    { 'TabLineSeparatorActive',   { guifg = M.c.active_sep,    guibg = M.c.active_bg } },
+    { 'TabLineSeparatorInactive', { guifg = M.c.inactive_text, guibg = M.c.inactive_bg } },
+    { 'TabLinePaddingActive',     { guifg = M.c.active_bg,     guibg = M.c.active_bg } },
+    { 'TabLinePaddingInactive',   { guifg = M.c.inactive_bg,   guibg = M.c.inactive_bg } },
+    { 'TabLineModifiedActive',    { guifg = M.c.active_text,   guibg = M.c.active_bg } },
+    { 'TabLineModifiedInactive',  { guifg = M.c.inactive_text, guibg = M.c.inactive_bg } },
+    { 'TabLineCloseActive',       { guifg = M.c.active_text,   guibg = M.c.active_bg } },
+    { 'TabLineCloseInactive',     { guifg = M.c.inactive_text, guibg = M.c.inactive_bg } },
 })
 
 return M
