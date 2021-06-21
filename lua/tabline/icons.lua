@@ -1,64 +1,47 @@
 local M = {}
-local ok, web = pcall(require, 'nvim-web-devicons')
 local hl = require('tabline.highlights')
-local opt = require('tabline.config')
-
--- Find correct color
-function M.get_attr(group, attr)
-  local rgb_val = (vim.api.nvim_get_hl_by_name(group, true) or {})[attr]
-  return rgb_val and string.format('#%06x', rgb_val) or 'NONE'
-end
+local opt = require('tabline.config').options
+local utils = require('tabline.utils')
 
 -- Return icon with fg color
-function M.get_devicon(index, filename, extension)
+M.get_devicon = function(active, filename, extension)
+    local ok, web = pcall(require, 'nvim-web-devicons')
     if ok then
         local icon, icon_hl = web.get_icon(filename, extension, { default = true })
-        local active = 'Active'
-        local inactive = 'Inactive'
 
         icon = icon .. ' '
-        local color = M.get_attr(icon_hl, 'foreground')
-        hl.highlight(icon_hl .. active, {guifg = color, guibg = opt.active_background})
+        local color = hl.get_color(icon_hl, 'fg')
+        hl.highlight(icon_hl .. 'Active', {guifg = color, guibg = hl.c.active_bg})
         if not opt.color_all_icons then
-            hl.highlight(icon_hl .. inactive, {guifg = hl.c.inactive_text, guibg = hl.c.inactive_bg})
-        else
-            hl.highlight(icon_hl .. inactive, {guifg = color, guibg = opt.inactive_bg})
+            color = hl.c.inactive_text
         end
-        if index == vim.fn.tabpagenr() then
-            icon_hl = hl.create_hl_group(icon_hl .. active)
-        else
-            icon_hl = hl.create_hl_group(icon_hl .. inactive)
-        end
-        return hl.get_item(icon_hl, icon)
-    else
-        return ''
+        hl.highlight(icon_hl .. 'Inactive', {guifg = color, guibg = hl.c.inactive_bg})
+        return utils.get_item(icon_hl, icon, active)
     end
+    return ''
 end
 
-function M.get_modified_icon(index, modified, icon)
+M.get_modified_icon = function(hl_group, active, modified)
     if modified == 1 then
-        if index == vim.fn.tabpagenr() then
-            return hl.get_item('TablineModifiedActive', icon .. ' ')
-        else
-            return hl.get_item('TablineModifiedInactive', icon .. ' ')
-        end
-    else
-        return ''
+        return utils.get_item(hl_group, opt.modified_icon .. ' ', active)
     end
+    return ''
 end
 
-function M.get_close_icon(index, modified, close_icon)
-    local icon
-    if index == vim.fn.tabpagenr() then
-        icon = hl.get_item('TablineCloseActive', close_icon .. ' ')
-    else
-        icon = hl.get_item('TablineCloseInactive', close_icon .. ' ')
-    end
+M.get_close_icon = function(hl_group, index, modified)
     if modified == 1 then
         return ''
-    else
-        return '%' .. index .. 'X' .. icon .. '%X'
     end
+    local active = index == vim.fn.tabpagenr()
+    local icon = utils.get_item(hl_group, opt.close_icon .. ' ', active)
+    return '%' .. index .. 'X' .. icon .. '%X'
+end
+
+M.get_right_separator = function(hl_group, index)
+    if index == vim.fn.tabpagenr('$') and opt.right_separator then
+        return M.get_item(hl_group, opt.separator)
+    end
+    return ''
 end
 
 return M

@@ -1,50 +1,40 @@
 local M = {}
-local fn = vim.fn
-local hl = require('tabline.highlights')
 local icons = require('tabline.icons')
 local opt = require('tabline.config').options
 local utils = require('tabline.utils')
 
-local function tabline(options)
+local tabline = function(options)
     local s = ''
-    for index = 1, fn.tabpagenr('$') do
-        local winnr = fn.tabpagewinnr(index)
-        local buflist = fn.tabpagebuflist(index)
-        local bufnr = buflist[winnr]
-        local bufname = fn.bufname(bufnr)
-        local bufmodified = fn.getbufvar(bufnr, "&mod")
+    for index = 1, vim.fn.tabpagenr('$') do
+        local winnr = vim.fn.tabpagewinnr(index)
+        local bufnr = vim.fn.tabpagebuflist(index)[winnr]
+        local bufname = vim.fn.bufname(bufnr)
+        local bufmodified = vim.fn.getbufvar(bufnr, "&mod")
         local filename = utils.find_filename(bufname)
-        local extension = fn.fnamemodify(bufname, ':e')
-        local prefix, suffix = utils.find_affixes()
-        local left_separator, right_separator, devicon, close_icon, modified_icon
+        local extension = vim.fn.fnamemodify(bufname, ':e')
+        local padding = string.rep(' ', opt.padding)
 
         -- Make clickable
         s = s .. '%' .. index .. 'T'
 
-        if index == vim.fn.tabpagenr() then
-            filename = hl.get_item('TablineFilenameActive', filename)
-            left_separator = hl.get_item('TablineSeparatorActive', options.separator)
-            prefix = hl.get_item('TablinePaddingActive', prefix)
-            suffix = hl.get_item('TablinePaddingActive', suffix)
-        else
-            filename = hl.get_item('TablineFilenameInactive', filename)
-            left_separator = hl.get_item('TablineSeparatorInactive', options.separator)
-            prefix = hl.get_item('TablinePaddingInactive', prefix)
-            suffix = hl.get_item('TablinePaddingInactive', suffix)
-        end
+        local active = index == vim.fn.tabpagenr()
 
-        right_separator = utils.get_right_separator(index, options.separator)
-        devicon = icons.get_devicon(index, filename, extension)
-        modified_icon = icons.get_modified_icon(index, bufmodified, options.modified_icon)
-        close_icon = icons.get_close_icon(index, bufmodified, options.close_icon)
-
-        -- Assemble tabline
-        s = s .. left_separator .. prefix .. devicon .. filename .. suffix .. modified_icon .. close_icon .. right_separator
+        local tabline_items = {
+            utils.get_item('TablineSeparator', options.separator, active),   -- Left separator
+            utils.get_item('TablinePadding', padding, active),               -- Padding
+            icons.get_devicon(active, filename, extension),                  -- DevIcon
+            utils.get_item('Tabline', filename, active, true),               -- Filename
+            utils.get_item('TablinePadding', padding, active),               -- Padding
+            icons.get_modified_icon('TablineModified', active, bufmodified), -- Modified icon
+            icons.get_close_icon('TablineClose', index, bufmodified),        -- Closing icon
+            icons.get_right_separator('TablineSeparator', index),            -- Rigth separator
+        }
+        s = s .. table.concat(tabline_items)
     end
     return s
 end
 
-function M.setup(user_options)
+M.setup = function(user_options)
     opt = vim.tbl_extend('force', opt, user_options)
 
     function _G.nvim_tabline()
