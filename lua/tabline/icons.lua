@@ -37,9 +37,9 @@ M.get_close_icon = function(hl_group, index, modified)
     return '%' .. index .. 'X' .. icon .. '%X'
 end
 
-M.get_right_separator = function(hl_group, index)
-    if index == vim.fn.tabpagenr('$') and opt.right_separator then
-        return M.get_item(hl_group, opt.separator)
+M.get_right_separator = function(hl_group, index, right_separator)
+    if index == vim.fn.tabpagenr('$') and right_separator then
+        return utils.get_item(hl_group, opt.separator)
     end
     return ''
 end
