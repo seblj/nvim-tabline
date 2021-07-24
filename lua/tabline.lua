@@ -1,5 +1,5 @@
 local M = {}
-local opt
+local opt = require('tabline.config').options
 
 local tabline = function(options)
     local icons = require('tabline.icons')
@@ -36,22 +36,19 @@ local tabline = function(options)
 end
 
 M.setup = function(user_options)
-    vim.loop.new_async(vim.schedule_wrap(function()
-        opt = require('tabline.config').options
-        opt = vim.tbl_extend('force', opt, user_options)
-        function _G.nvim_tabline()
-            return tabline(opt)
-        end
+    opt = vim.tbl_extend('force', opt, user_options)
+    function _G.nvim_tabline()
+        return tabline(opt)
+    end
 
-        if opt.always_show_tabs then
-            vim.o.showtabline = 2
-        else
-            vim.o.showtabline = 1
-        end
-        vim.o.tabline = "%!v:lua.nvim_tabline()"
+    if opt.always_show_tabs then
+        vim.o.showtabline = 2
+    else
+        vim.o.showtabline = 1
+    end
+    vim.o.tabline = "%!v:lua.nvim_tabline()"
 
-        vim.g.loaded_nvim_tabline = 1
-    end)):send()
+    vim.g.loaded_nvim_tabline = 1
 end
 
 return M
