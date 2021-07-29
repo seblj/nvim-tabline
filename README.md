@@ -1,51 +1,34 @@
-# nvim-tabline
+# Tabline for NeoVim
 
-Simple tabline in lua
+Forked and borked for personal use.
 
-![ezgif com-video-to-gif](https://user-images.githubusercontent.com/5160701/112813955-11465380-907f-11eb-93ae-b828ccb23a76.gif)
+# Setup
 
-## Requirements
-- Neovim 0.5+ (_nightly_)
-- A patched font (see [nerd fonts](https://github.com/ryanoasis/nerd-fonts))
-- Termguicolors should be set
+The default settings are as of now [settings.lua](lua/tabline/settings.lua)
 
-## Installation
-
-### packer.nvim
-```Lua
-use {'seblj/nvim-tabline',
-    requires = {'kyazdani42/nvim-web-devicons'}
-}
-```
-
-### vim-plug
-```Vim
-call plug#begin()
-
-Plug 'seblj/nvim-tabline'
-Plug 'kyazdani42/nvim-web-devicons'             " Optional
-
-call plug#end()
-```
-
-## Setup
-
-```Lua
+```lua
 require('tabline').setup{
-    no_name = '[No Name]',    -- Name for buffers with no name
-    modified_icon = '',      -- Icon for showing modified buffer
-    close_icon = '',         -- Icon for closing tab with mouse
-    separator = "▌",          -- Separator icon on the left side
-    padding = 3,              -- Prefix and suffix space
-    color_all_icons = false,  -- Color devicons in active and inactive tabs
-    always_show_tabs = false, -- Always show tabline
-    right_separator = false,  -- Show right separator on the last tab
+  -- Default name of an empty buffer
+  nameless = '[Empty buffer]',
+
+  -- Try to keep icons the same length
+  icon_modified = '🦆',
+  icon_close = '🐤',
+
+  -- Left and right of every tab
+  separator_left = '|»',
+  separator_right = '',
+
+  -- Amount of spaces left and right of every filename
+  padding = 2,
 }
 ```
 
 ## Highlight groups
 
-```
+All colouring can be customized with the following highlight groups.
+
+```vim
 TabLine
 TabLineSel
 TabLineFill
@@ -58,3 +41,5 @@ TabLineModifiedInactive
 TabLineCloseActive
 TabLineCloseInactive
 ```
+
+#
