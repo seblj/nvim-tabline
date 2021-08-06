@@ -11,11 +11,11 @@ M.get_devicon = function(active, filename, extension)
 
         icon = icon .. ' '
         local color = hl.get_color(icon_hl, 'fg')
-        hl.highlight(icon_hl .. 'Active', {guifg = color, guibg = hl.c.active_bg})
+        hl.highlight(icon_hl .. 'Active', { guifg = color, guibg = hl.c.active_bg })
         if not config.get('color_all_icons') then
             color = hl.c.inactive_text
         end
-        hl.highlight(icon_hl .. 'Inactive', {guifg = color, guibg = hl.c.inactive_bg})
+        hl.highlight(icon_hl .. 'Inactive', { guifg = color, guibg = hl.c.inactive_bg })
         return utils.get_item(icon_hl, icon, active)
     end
     return ''

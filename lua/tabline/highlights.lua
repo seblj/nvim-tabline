@@ -37,13 +37,14 @@ M.highlight_all = function(hls)
 end
 
 M.c = {
-    active_bg     = M.get_color('TabLineSel', 'bg'),
-    inactive_bg   = M.get_color('TabLine', 'bg'),
-    active_text   = '#eeeeee',
+    active_bg = M.get_color('TabLineSel', 'bg'),
+    inactive_bg = M.get_color('TabLine', 'bg'),
+    active_text = '#eeeeee',
     inactive_text = '#7f8490',
-    active_sep    = '#ff6077',
+    active_sep = '#ff6077',
 }
 
+-- stylua: ignore
 M.highlight_all({
     { 'TabLineSeparatorActive',   { guifg = M.c.active_sep,    guibg = M.c.active_bg } },
     { 'TabLineSeparatorInactive', { guifg = M.c.inactive_text, guibg = M.c.inactive_bg } },

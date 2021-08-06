@@ -4,7 +4,7 @@ local default = {
     no_name = '[No Name]',
     modified_icon = '',
     close_icon = '',
-    separator = "▌",
+    separator = '▌',
     padding = 3,
     color_all_icons = false,
     always_show_tabs = false,
@@ -19,10 +19,10 @@ M.set = function(user_options)
 end
 
 M.get = function(key)
-  if key then
-    return config[key]
-  end
-  return config
+    if key then
+        return config[key]
+    end
+    return config
 end
 
 return M
