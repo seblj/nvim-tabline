@@ -1,5 +1,5 @@
 local M = {}
-local opt = require('tabline.config').options
+local config = require('tabline.config')
 
 -- sel is optional
 -- Append 'Sel' if true to use default highlight group
@@ -21,7 +21,7 @@ end
 
 M.find_filename = function(bufname)
     if bufname == '' then
-        return opt.no_name .. ' '
+        return config.get('no_name') .. ' '
     end
     return vim.fn.fnamemodify(bufname, ':t') .. ' '
 end

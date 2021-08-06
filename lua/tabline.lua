@@ -1,7 +1,8 @@
 local M = {}
-local opt = require('tabline.config').options
+local config = require('tabline.config')
+local opt
 
-local tabline = function(options)
+local tabline = function()
     local icons = require('tabline.icons')
     local utils = require('tabline.utils')
 
@@ -21,14 +22,14 @@ local tabline = function(options)
         local active = index == vim.fn.tabpagenr()
 
         local tabline_items = {
-            utils.get_item('TabLineSeparator', options.separator, active),             -- Left separator
+            utils.get_item('TabLineSeparator', opt.separator, active),                 -- Left separator
             utils.get_item('TabLinePadding', padding, active),                         -- Padding
             icons.get_devicon(active, filename, extension),                            -- DevIcon
             utils.get_item('TabLine', filename, active, true),                         -- Filename
             utils.get_item('TabLinePadding', padding, active),                         -- Padding
             icons.get_modified_icon('TabLineModified', active, bufmodified),           -- Modified icon
             icons.get_close_icon('TabLineClose', index, bufmodified),                  -- Closing icon
-            icons.get_right_separator('TabLineSeparator', index, opt.right_separator), -- Rigth separator
+            icons.get_right_separator('TabLineSeparator', index),                      -- Rigth separator
         }
         s = s .. table.concat(tabline_items)
     end
@@ -36,9 +37,9 @@ local tabline = function(options)
 end
 
 M.setup = function(user_options)
-    opt = vim.tbl_extend('force', opt, user_options)
+    opt = config.set(user_options)
     function _G.nvim_tabline()
-        return tabline(opt)
+        return tabline()
     end
 
     if opt.always_show_tabs then
