@@ -23,7 +23,7 @@ local tabline = function()
 
         -- stylua: ignore
         local tabline_items = {
-            utils.get_item('TabLineSeparator', opt.separator, active),       -- Left separator
+            icons.get_left_separator(active, bufmodified),                   -- Left separator
             utils.get_item('TabLinePadding', padding, active),               -- Padding
             icons.get_devicon(active, filename, extension),                  -- DevIcon
             utils.get_item('TabLine', filename, active, true),               -- Filename

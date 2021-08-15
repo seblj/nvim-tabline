@@ -51,6 +51,8 @@ TabLineSel
 TabLineFill
 TabLineSeparatorActive
 TabLineSeparatorInactive
+TabLineModifiedSeparatorActive
+TabLineModifiedSeparatorInactive
 TabLinePaddingActive
 TabLinePaddingInactive
 TabLineModifiedActive

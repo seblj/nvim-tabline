@@ -4,6 +4,13 @@ local config = require('tabline.config')
 local utils = require('tabline.utils')
 
 -- Return icon with fg color
+M.get_left_separator = function(active, modified)
+    if modified == 1 then
+        return utils.get_item('TabLineModifiedSeparator', config.get('separator'), active)
+    end
+    return utils.get_item('TabLineSeparator', config.get('separator'), active)
+end
+
 M.get_devicon = function(active, filename, extension)
     local ok, web = pcall(require, 'nvim-web-devicons')
     if ok then

@@ -42,18 +42,21 @@ M.c = {
     active_text = '#eeeeee',
     inactive_text = '#7f8490',
     active_sep = '#ff6077',
+    modified_active_sep = '#ff6077',
 }
 
 -- stylua: ignore
 M.highlight_all({
-    { 'TabLineSeparatorActive',   { guifg = M.c.active_sep,    guibg = M.c.active_bg } },
-    { 'TabLineSeparatorInactive', { guifg = M.c.inactive_text, guibg = M.c.inactive_bg } },
-    { 'TabLinePaddingActive',     { guifg = M.c.active_bg,     guibg = M.c.active_bg } },
-    { 'TabLinePaddingInactive',   { guifg = M.c.inactive_bg,   guibg = M.c.inactive_bg } },
-    { 'TabLineModifiedActive',    { guifg = M.c.active_text,   guibg = M.c.active_bg } },
-    { 'TabLineModifiedInactive',  { guifg = M.c.inactive_text, guibg = M.c.inactive_bg } },
-    { 'TabLineCloseActive',       { guifg = M.c.active_text,   guibg = M.c.active_bg } },
-    { 'TabLineCloseInactive',     { guifg = M.c.inactive_text, guibg = M.c.inactive_bg } },
+    { 'TabLineSeparatorActive',             { guifg = M.c.active_sep,           guibg = M.c.active_bg } },
+    { 'TabLineSeparatorInactive',           { guifg = M.c.inactive_text,        guibg = M.c.inactive_bg } },
+    { 'TabLineModifiedSeparatorActive',     { guifg = M.c.modified_active_sep,  guibg = M.c.active_bg } },
+    { 'TabLineModifiedSeparatorInactive',   { guifg = M.c.inactive_text,        guibg = M.c.inactive_bg } },
+    { 'TabLinePaddingActive',               { guifg = M.c.active_bg,            guibg = M.c.active_bg } },
+    { 'TabLinePaddingInactive',             { guifg = M.c.inactive_bg,          guibg = M.c.inactive_bg } },
+    { 'TabLineModifiedActive',              { guifg = M.c.active_text,          guibg = M.c.active_bg } },
+    { 'TabLineModifiedInactive',            { guifg = M.c.inactive_text,        guibg = M.c.inactive_bg } },
+    { 'TabLineCloseActive',                 { guifg = M.c.active_text,          guibg = M.c.active_bg } },
+    { 'TabLineCloseInactive',               { guifg = M.c.inactive_text,        guibg = M.c.inactive_bg } },
 })
 
 return M
