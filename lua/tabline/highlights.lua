@@ -19,9 +19,9 @@ M.highlight = function(name, opts)
     end
     if name and vim.tbl_count(opts) > 0 then
         if opts.link and opts.link ~= '' then
-            vim.cmd('highlight!' .. ' link ' .. name .. ' ' .. opts.link)
+            vim.cmd('highlight default' .. ' link ' .. name .. ' ' .. opts.link)
         else
-            local command = { 'highlight!', name }
+            local command = { 'highlight default', name }
             for k, v in pairs(opts) do
                 table.insert(command, string.format('%s=', k) .. v)
             end
