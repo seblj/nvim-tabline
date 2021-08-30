@@ -44,11 +44,11 @@ M.setup = function(user_options)
     end
 
     if opt.always_show_tabs then
-        vim.o.showtabline = 2
+        vim.opt.showtabline = 2
     else
-        vim.o.showtabline = 1
+        vim.opt.showtabline = 1
     end
-    vim.o.tabline = '%!v:lua.nvim_tabline()'
+    vim.opt.tabline = '%!v:lua.nvim_tabline()'
 
     vim.g.loaded_nvim_tabline = 1
 end
