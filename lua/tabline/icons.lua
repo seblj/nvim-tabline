@@ -12,8 +12,9 @@ M.get_left_separator = function(active, modified)
 end
 
 M.get_devicon = function(active, filename, extension)
+    local enabled = config.get('show_icon')
     local ok, web = pcall(require, 'nvim-web-devicons')
-    if ok then
+    if enabled and ok then
         local icon, icon_hl = web.get_icon(filename, extension, { default = true })
 
         icon = icon .. ' '
