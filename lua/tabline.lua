@@ -16,6 +16,10 @@ local tabline = function()
         local extension = vim.fn.fnamemodify(bufname, ':e')
         local padding = string.rep(' ', opt.padding)
 
+        if opt.show_index then
+            filename = index .. ' ' .. filename
+        end
+
         -- Make clickable
         s = s .. '%' .. index .. 'T'
 
