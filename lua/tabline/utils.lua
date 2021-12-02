@@ -26,4 +26,15 @@ M.find_filename = function(bufname)
     return vim.fn.fnamemodify(bufname, ':t') .. ' '
 end
 
+M.get_tabname = function(bufname, index)
+    local title = vim.fn.gettabvar(index, 'TablineTitle')
+    if title ~= '' then
+        return title
+    end
+    if bufname == '' then
+        return config.get('no_name') .. ' '
+    end
+    return vim.fn.fnamemodify(bufname, ':t') .. ' '
+end
+
 return M
