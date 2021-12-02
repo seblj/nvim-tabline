@@ -11,9 +11,11 @@ M.get_left_separator = function(active, modified)
     return utils.get_item('TabLineSeparator', config.get('separator'), active)
 end
 
-M.get_devicon = function(active, filename, extension)
+M.get_devicon = function(active, bufname, extension)
     local enabled = config.get('show_icon')
     local ok, web = pcall(require, 'nvim-web-devicons')
+    local filename = vim.fn.fnamemodify(bufname, ':t')
+
     if enabled and ok then
         local icon, icon_hl = web.get_icon(filename, extension, { default = true })
 

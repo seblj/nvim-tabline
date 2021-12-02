@@ -12,12 +12,12 @@ local tabline = function()
         local bufnr = vim.fn.tabpagebuflist(index)[winnr]
         local bufname = vim.fn.bufname(bufnr)
         local bufmodified = vim.fn.getbufvar(bufnr, '&mod')
-        local filename = utils.find_filename(bufname)
+        local tabname = utils.get_tabname(bufname, index)
         local extension = vim.fn.fnamemodify(bufname, ':e')
         local padding = string.rep(' ', opt.padding)
 
         if opt.show_index then
-            filename = index .. ' ' .. filename
+            tabname = index .. ' ' .. tabname
         end
 
         -- Make clickable
@@ -29,8 +29,8 @@ local tabline = function()
         local tabline_items = {
             icons.get_left_separator(active, bufmodified),                   -- Left separator
             utils.get_item('TabLinePadding', padding, active),               -- Padding
-            icons.get_devicon(active, filename, extension),                  -- DevIcon
-            utils.get_item('TabLine', filename, active, true),               -- Filename
+            icons.get_devicon(active, bufname, extension),                   -- DevIcon
+            utils.get_item('TabLine', tabname, active, true),                -- Tabname (default to filename)
             utils.get_item('TabLinePadding', padding, active),               -- Padding
             icons.get_modified_icon('TabLineModified', active, bufmodified), -- Modified icon
             icons.get_close_icon('TabLineClose', index, bufmodified),        -- Closing icon

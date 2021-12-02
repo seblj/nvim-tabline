@@ -19,7 +19,11 @@ M.get_item = function(group, item, active, sel)
     return '%#' .. group .. '#' .. item .. '%*'
 end
 
-M.find_filename = function(bufname)
+M.get_tabname = function(bufname, index)
+    local title = vim.fn.gettabvar(index, 'TablineTitle')
+    if title ~= '' then
+        return title
+    end
     if bufname == '' then
         return config.get('no_name') .. ' '
     end
