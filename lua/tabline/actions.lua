@@ -5,11 +5,13 @@ M.set_tabname = function()
         local tabnr = vim.fn.tabpagenr()
         vim.fn.settabvar(tabnr, 'TablineTitle', input)
     end)
+    vim.cmd('redrawtabline')
 end
 
 M.clear_tabname = function()
     local tabnr = vim.fn.tabpagenr()
     vim.fn.settabvar(tabnr, 'TablineTitle', '')
+    vim.cmd('redrawtabline')
 end
 
 return M
