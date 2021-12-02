@@ -5,7 +5,7 @@ Simple tabline in lua
 ![ezgif com-video-to-gif](https://user-images.githubusercontent.com/5160701/112813955-11465380-907f-11eb-93ae-b828ccb23a76.gif)
 
 ## Requirements
-- Neovim 0.5+ (_nightly_)
+- Neovim 0.5+
 - A patched font (see [nerd fonts](https://github.com/ryanoasis/nerd-fonts))
 - Termguicolors should be set
 
@@ -43,6 +43,20 @@ require('tabline').setup{
     show_index = false,       -- Shows the index of tab before filename
     show_icon = true,         -- Shows the devicon
 }
+```
+
+## Configurations
+#### Change tabname
+Will prompt you for a custom tabname
+```Lua
+require('tabline.actions').set_tabname()
+```
+
+#### Clear custom tabname
+Clears the custom tabname and goes back to default
+```Lua
+require('tabline.actions').clear_tabname()
+
 ```
 
 ## Highlight groups
