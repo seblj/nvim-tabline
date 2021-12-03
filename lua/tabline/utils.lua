@@ -21,7 +21,7 @@ end
 
 M.get_tabname = function(bufname, index)
     local title = vim.fn.gettabvar(index, 'TablineTitle')
-    if title ~= '' then
+    if title ~= vim.NIL and title ~= '' then
         return title
     end
     if bufname == '' then
