@@ -2,6 +2,9 @@ local M = {}
 
 M.set_tabname = function()
     vim.ui.input({ prompt = 'Tabname: ' }, function(input)
+        if not input then
+            return
+        end
         local tabnr = vim.fn.tabpagenr()
         vim.fn.settabvar(tabnr, 'TablineTitle', input)
     end)
