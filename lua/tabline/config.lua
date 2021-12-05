@@ -16,6 +16,7 @@ local default = {
 local config = {}
 
 M.set = function(user_options)
+    user_options = user_options or {}
     config = vim.tbl_extend('force', default, user_options)
     return config
 end
