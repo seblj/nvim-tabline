@@ -5,6 +5,7 @@ Simple tabline in lua
 ![ezgif com-video-to-gif](https://user-images.githubusercontent.com/5160701/112813955-11465380-907f-11eb-93ae-b828ccb23a76.gif)
 
 ## Requirements
+
 - Neovim 0.5+
 - A patched font (see [nerd fonts](https://github.com/ryanoasis/nerd-fonts))
 - Termguicolors should be set
@@ -12,6 +13,7 @@ Simple tabline in lua
 ## Installation
 
 ### packer.nvim
+
 ```Lua
 use {'seblj/nvim-tabline',
     requires = {'kyazdani42/nvim-web-devicons'}
@@ -19,6 +21,7 @@ use {'seblj/nvim-tabline',
 ```
 
 ### vim-plug
+
 ```Vim
 call plug#begin()
 
@@ -46,14 +49,19 @@ require('tabline').setup{
 ```
 
 ## Configurations
+
 #### Change tabname
+
 Will prompt you for a custom tabname
+
 ```Lua
 require('tabline.actions').set_tabname()
 ```
 
 #### Clear custom tabname
+
 Clears the custom tabname and goes back to default
+
 ```Lua
 require('tabline.actions').clear_tabname()
 
