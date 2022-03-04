@@ -7,7 +7,6 @@ local default = {
     separator = '▌',
     padding = 3,
     color_all_icons = false,
-    always_show_tabs = false,
     right_separator = false,
     show_index = false,
     show_icon = true,

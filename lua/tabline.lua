@@ -47,11 +47,6 @@ M.setup = function(user_options)
         return tabline()
     end
 
-    if opt.always_show_tabs then
-        vim.opt.showtabline = 2
-    else
-        vim.opt.showtabline = 1
-    end
     vim.opt.tabline = '%!v:lua.nvim_tabline()'
 
     vim.g.loaded_nvim_tabline = 1
