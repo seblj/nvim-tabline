@@ -25,9 +25,9 @@ M.get_tabname = function(bufname, index)
         return title
     end
     if bufname == '' then
-        return config.get('no_name') .. ' '
+        return config.get('no_name')
     end
-    return vim.fn.fnamemodify(bufname, ':t') .. ' '
+    return vim.fn.fnamemodify(bufname, ':t')
 end
 
 return M
