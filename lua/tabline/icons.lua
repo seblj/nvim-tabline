@@ -21,11 +21,15 @@ M.get_devicon = function(active, bufname, extension)
 
         icon = icon .. ' '
         local color = hl.get_color(icon_hl, 'fg')
-        hl.highlight(icon_hl .. 'Active', { guifg = color, guibg = hl.c.active_bg })
-        if not config.get('color_all_icons') then
-            color = hl.c.inactive_text
-        end
-        hl.highlight(icon_hl .. 'Inactive', { guifg = color, guibg = hl.c.inactive_bg })
+
+        local active_color = hl.get_color('TabLineIconActive', 'fg') or color
+        hl.highlight(icon_hl .. 'Active', { guifg = active_color, guibg = hl.c.active_bg })
+
+        local inactive_color = (not config.get('color_all_icons') and hl.c.inactive_text)
+            or hl.get_color('TabLineIconInactive', 'fg')
+            or color
+        hl.highlight(icon_hl .. 'Inactive', { guifg = inactive_color, guibg = hl.c.inactive_bg })
+
         return utils.get_item(icon_hl, icon, active)
     end
     return ''
