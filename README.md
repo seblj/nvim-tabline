@@ -76,8 +76,6 @@ TabLineSeparatorActive
 TabLineSeparatorInactive
 TabLineModifiedSeparatorActive
 TabLineModifiedSeparatorInactive
-TabLinePaddingActive
-TabLinePaddingInactive
 TabLineModifiedActive
 TabLineModifiedInactive
 TabLineCloseActive

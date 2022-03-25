@@ -23,7 +23,11 @@ M.highlight = function(name, opts)
     end
     if name and vim.tbl_count(opts) > 0 then
         if opts.link and opts.link ~= '' then
-            vim.cmd('highlight default' .. ' link ' .. name .. ' ' .. opts.link)
+            if opts.force then
+                vim.cmd('highlight! ' .. ' link ' .. name .. ' ' .. opts.link)
+            else
+                vim.cmd('highlight default' .. ' link ' .. name .. ' ' .. opts.link)
+            end
         else
             local command = { 'highlight default', name }
             for k, v in pairs(opts) do
@@ -49,18 +53,20 @@ M.c = {
     modified_active_sep = '#ff6077',
 }
 
--- stylua: ignore
+-- stylua: ignore start
 M.highlight_all({
      TabLineSeparatorActive           = { guifg = M.c.active_sep,           guibg = M.c.active_bg } ,
      TabLineSeparatorInactive         = { guifg = M.c.inactive_text,        guibg = M.c.inactive_bg } ,
      TabLineModifiedSeparatorActive   = { guifg = M.c.modified_active_sep,  guibg = M.c.active_bg } ,
      TabLineModifiedSeparatorInactive = { guifg = M.c.inactive_text,        guibg = M.c.inactive_bg } ,
-     TabLinePaddingActive             = { guifg = M.c.active_bg,            guibg = M.c.active_bg } ,
-     TabLinePaddingInactive           = { guifg = M.c.inactive_bg,          guibg = M.c.inactive_bg } ,
      TabLineModifiedActive            = { guifg = M.c.active_text,          guibg = M.c.active_bg } ,
      TabLineModifiedInactive          = { guifg = M.c.inactive_text,        guibg = M.c.inactive_bg } ,
      TabLineCloseActive               = { guifg = M.c.active_text,          guibg = M.c.active_bg } ,
      TabLineCloseInactive             = { guifg = M.c.inactive_text,        guibg = M.c.inactive_bg } ,
 })
+-- stylua: ignore end
+
+M.highlight('TabLinePaddingActive', { link = 'TabLineSel', force = true })
+M.highlight('TabLinePaddingInactive', { link = 'TabLine', force = true })
 
 return M
