@@ -1,7 +1,11 @@
 local M = {}
 
 M.get_color = function(group, attr)
-    return vim.fn.synIDattr(vim.fn.hlID(group), attr)
+    local color = vim.fn.synIDattr(vim.fn.hlID(group), attr)
+    if color ~= '' then
+        return color
+    end
+    return nil
 end
 
 M.highlight = function(name, opts)

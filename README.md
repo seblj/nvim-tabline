@@ -82,4 +82,6 @@ TabLineModifiedActive
 TabLineModifiedInactive
 TabLineCloseActive
 TabLineCloseInactive
+TabLineIconActive (Only works with fg color)
+TabLineIconInactive (Only works with fg color)
 ```
