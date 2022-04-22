@@ -7,8 +7,8 @@ M.set_tabname = function()
         end
         local tabnr = vim.fn.tabpagenr()
         vim.fn.settabvar(tabnr, 'TablineTitle', input)
+        vim.cmd('redrawtabline')
     end)
-    vim.cmd('redrawtabline')
 end
 
 M.clear_tabname = function()
