@@ -2,10 +2,7 @@ local M = {}
 
 M.get_color = function(group, attr)
     local color = vim.fn.synIDattr(vim.fn.hlID(group), attr)
-    if color ~= '' then
-        return color
-    end
-    return nil
+    return color ~= '' and color or nil
 end
 
 M.c = {
@@ -31,7 +28,7 @@ hi({
      TabLineCloseSel     = { fg = M.c.active_text,   bg = M.c.active_bg } ,
      TabLineClose        = { fg = M.c.inactive_text, bg = M.c.inactive_bg } ,
      TabLinePaddingSel   = { link = 'TabLineSel' },
-     TabLinePadding      = { link = 'TabLineSel' },
+     TabLinePadding      = { link = 'TabLine' },
 })
 -- stylua: ignore end
 
