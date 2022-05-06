@@ -6,7 +6,7 @@ Simple tabline in lua
 
 ## Requirements
 
-- Neovim 0.5+
+- Neovim 0.7+
 - A patched font (see [nerd fonts](https://github.com/ryanoasis/nerd-fonts))
 - Termguicolors should be set
 
