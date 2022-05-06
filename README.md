@@ -14,13 +14,13 @@ Simple tabline in lua
 
 ### packer.nvim
 
-```Lua
+```lua
 use({ 'seblj/nvim-tabline', requires = { 'kyazdani42/nvim-web-devicons' } })
 ```
 
 ### vim-plug
 
-```Vim
+```vim
 call plug#begin()
 
 Plug 'seblj/nvim-tabline'
@@ -31,7 +31,7 @@ call plug#end()
 
 ## Setup
 
-```Lua
+```lua
 require('tabline').setup({
     no_name = '[No Name]',    -- Name for buffers with no name
     modified_icon = '',      -- Icon for showing modified buffer
@@ -51,7 +51,7 @@ require('tabline').setup({
 
 Will prompt you for a custom tabname
 
-```Lua
+```lua
 require('tabline.actions').set_tabname()
 ```
 
@@ -59,7 +59,7 @@ require('tabline.actions').set_tabname()
 
 Clears the custom tabname and goes back to default
 
-```Lua
+```lua
 require('tabline.actions').clear_tabname()
 
 ```
@@ -70,14 +70,12 @@ require('tabline.actions').clear_tabname()
 TabLine
 TabLineSel
 TabLineFill
-TabLineSeparatorActive
-TabLineSeparatorInactive
-TabLineModifiedSeparatorActive
-TabLineModifiedSeparatorInactive
-TabLineModifiedActive
-TabLineModifiedInactive
-TabLineCloseActive
-TabLineCloseInactive
-TabLineIconActive (Only works with fg color)
-TabLineIconInactive (Only works with fg color)
+TabLineSeparatorSel
+TabLineSeparator
+TabLineModifiedSel
+TabLineModified
+TabLineCloseSel
+TabLineClose
+TabLineIconSel (Only works with fg color)
+TabLineIcon (Only works with fg color)
 ```

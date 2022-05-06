@@ -1,19 +1,23 @@
 local M = {}
 local config = require('tabline.config')
 
--- sel is optional
--- Append 'Sel' if true to use default highlight group
-M.get_item = function(group, item, active, sel)
+M.get_item = function(group, item, index, modified)
+    local active = index == vim.fn.tabpagenr()
+    if modified then
+        group = group .. 'Modified'
+    end
     if active then
-        if sel then
-            group = group .. 'Sel'
-        else
-            group = group .. 'Active'
+        group = group .. 'Sel'
+    end
+
+    -- Special case for close icon
+    if group:match('TabLineClose') then
+        if modified or item == '' then
+            return ''
         end
-    else
-        if not sel then
-            group = group .. 'Inactive'
-        end
+
+        local icon = '%#' .. group .. '#' .. item .. '%*'
+        return '%' .. index .. 'X' .. icon .. '%X'
     end
 
     return '%#' .. group .. '#' .. item .. '%*'

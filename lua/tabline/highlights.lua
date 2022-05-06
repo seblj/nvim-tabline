@@ -55,18 +55,16 @@ M.c = {
 
 -- stylua: ignore start
 M.highlight_all({
-     TabLineSeparatorActive           = { guifg = M.c.active_sep,           guibg = M.c.active_bg } ,
-     TabLineSeparatorInactive         = { guifg = M.c.inactive_text,        guibg = M.c.inactive_bg } ,
-     TabLineModifiedSeparatorActive   = { guifg = M.c.modified_active_sep,  guibg = M.c.active_bg } ,
-     TabLineModifiedSeparatorInactive = { guifg = M.c.inactive_text,        guibg = M.c.inactive_bg } ,
-     TabLineModifiedActive            = { guifg = M.c.active_text,          guibg = M.c.active_bg } ,
-     TabLineModifiedInactive          = { guifg = M.c.inactive_text,        guibg = M.c.inactive_bg } ,
-     TabLineCloseActive               = { guifg = M.c.active_text,          guibg = M.c.active_bg } ,
-     TabLineCloseInactive             = { guifg = M.c.inactive_text,        guibg = M.c.inactive_bg } ,
+     TabLineSeparatorSel = { guifg = M.c.active_sep,    guibg = M.c.active_bg } ,
+     TabLineSeparator    = { guifg = M.c.inactive_text, guibg = M.c.inactive_bg } ,
+     TabLineModifiedSel  = { guifg = M.c.active_text,   guibg = M.c.active_bg } ,
+     TabLineModified     = { guifg = M.c.inactive_text, guibg = M.c.inactive_bg } ,
+     TabLineCloseSel     = { guifg = M.c.active_text,   guibg = M.c.active_bg } ,
+     TabLineClose        = { guifg = M.c.inactive_text, guibg = M.c.inactive_bg } ,
 })
 -- stylua: ignore end
 
-M.highlight('TabLinePaddingActive', { link = 'TabLineSel', force = true })
-M.highlight('TabLinePaddingInactive', { link = 'TabLine', force = true })
+M.highlight('TabLinePaddingSel', { link = 'TabLineSel', force = true })
+M.highlight('TabLinePadding', { link = 'TabLine', force = true })
 
 return M

@@ -15,16 +15,12 @@ local default = {
 local config = {}
 
 M.set = function(user_options)
-    user_options = user_options or {}
-    config = vim.tbl_extend('force', default, user_options)
+    config = vim.tbl_extend('force', default, user_options or {})
     return config
 end
 
 M.get = function(key)
-    if key then
-        return config[key]
-    end
-    return config
+    return key and config[key] or config
 end
 
 return M
