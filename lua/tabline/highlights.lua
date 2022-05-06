@@ -14,7 +14,6 @@ M.c = {
     active_text = '#eeeeee',
     inactive_text = '#7f8490',
     active_sep = '#ff6077',
-    modified_active_sep = '#ff6077',
 }
 
 local hi = function(colors)
