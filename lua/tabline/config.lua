@@ -20,7 +20,10 @@ M.set = function(user_options)
 end
 
 M.get = function(key)
-    return key and config[key] or config
+    if key and config[key] ~= nil then
+        return config[key]
+    end
+    return config
 end
 
 return M

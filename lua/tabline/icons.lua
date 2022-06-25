@@ -16,13 +16,13 @@ M.get_devicon = function(index, bufname, extension)
         icon_hl = 'TabLine' .. icon_hl
 
         local active_color = hl.get_color('TabLineIconSel', 'fg') or color
-        vim.api.nvim_set_hl(0, icon_hl .. 'Sel', { fg = active_color, bg = hl.c.active_bg })
+        vim.api.nvim_set_hl(0, icon_hl .. 'Sel', { fg = active_color, bg = hl.get_bg(true) })
 
         local inactive_color = (not config.get('color_all_icons') and hl.c.inactive_text)
             or hl.get_color('TabLineIcon', 'fg')
             or color
 
-        vim.api.nvim_set_hl(0, icon_hl, { fg = inactive_color, bg = hl.c.inactive_bg })
+        vim.api.nvim_set_hl(0, icon_hl, { fg = inactive_color, bg = hl.get_bg(false) })
         return utils.get_item(icon_hl, icon, index)
     end
     return ''
