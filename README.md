@@ -15,7 +15,7 @@ Simple tabline in lua
 ### packer.nvim
 
 ```lua
-use({ 'seblj/nvim-tabline', requires = { 'kyazdani42/nvim-web-devicons' } })
+use({ 'seblj/nvim-tabline', requires = { 'nvim-tree/nvim-web-devicons' } })
 ```
 
 ### vim-plug
@@ -24,7 +24,7 @@ use({ 'seblj/nvim-tabline', requires = { 'kyazdani42/nvim-web-devicons' } })
 call plug#begin()
 
 Plug 'seblj/nvim-tabline'
-Plug 'kyazdani42/nvim-web-devicons'             " Optional
+Plug 'nvim-tree/nvim-web-devicons'             " Optional
 
 call plug#end()
 ```
