@@ -1,7 +1,7 @@
 local M = {}
 
 M.get_color = function(group, attr)
-    local color = vim.fn.synIDattr(vim.fn.hlID(group), attr)
+    local color = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID(group)), attr)
     return color ~= '' and color or nil
 end
 
@@ -11,7 +11,7 @@ M.c = {
     active_sep = '#ff6077',
 }
 
-M.get_bg = function (active)
+M.get_bg = function(active)
     local group = active and 'TabLineSel' or 'TabLine'
     return M.get_color(group, 'bg')
 end
