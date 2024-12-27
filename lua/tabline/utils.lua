@@ -17,7 +17,7 @@ M.get_item = function(group, item, index, modified)
         end
 
         local icon = '%#' .. group .. '#' .. item .. '%*'
-        return '%' .. index .. 'X' .. icon .. '%X'
+        return '%' .. index .. 'X' .. icon .. '%X '
     end
 
     return '%#' .. group .. '#' .. item .. '%*'

@@ -21,7 +21,7 @@ local tabline = function()
         local left_sep = config.get('separator')
         local right_sep = index == last_index and config.get('right_separator') and left_sep or ''
         local modified_icon = bufmodified and config.get('modified_icon') .. ' ' or ''
-        local close_icon = config.get('close_icon') .. ' '
+        local close_icon = config.get('close_icon')
 
         if opt.show_index then
             tabname = index .. ' ' .. tabname
