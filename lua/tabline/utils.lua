@@ -34,15 +34,6 @@ M.get_tabname = function(bufname, index)
     return vim.fn.fnamemodify(bufname, ':t')
 end
 
-M.is_val_in_table = function(val, tbl)
-    for _, value in pairs(tbl) do
-        if value == val then
-            return true
-        end
-    end
-    return false
-end
-
 M.is_focusable = function(win_id)
     return vim.api.nvim_win_get_config(win_id).focusable
 end
@@ -58,7 +49,7 @@ M.get_win_count = function(index)
             local bufnr = vim.api.nvim_win_get_buf(win_id)
             local bt = vim.api.nvim_get_option_value('buftype', { buf = bufnr })
 
-            if not M.is_val_in_table(bt, opts.buftype_blacklist) then
+            if not vim.list_contains(opts.buftype_blacklist, bt) then
                 table.insert(buf_list, bufnr)
             end
         end
@@ -86,7 +77,7 @@ M.get_win_count = function(index)
                 'buftype',
                 { buf = vim.api.nvim_win_get_buf(vim.api.nvim_tabpage_get_win(index)) }
             )
-            if M.is_val_in_table(focused_bt, opts.buftype_blacklist) then
+            if vim.list_contains(opts.buftype_blacklist, focused_bt) then
                 return string.format(' [+%s]', counted)
             else
                 return string.format(' [+%s]', counted - 1)
