@@ -47,7 +47,7 @@ M.get_win_count = function(index)
     for _, win_id in pairs(win_list) do
         if is_focusable(win_id) then
             local bufnr = vim.api.nvim_win_get_buf(win_id)
-            local bt = vim.api.nvim_get_option_value('buftype', { buf = bufnr })
+            local bt = vim.bo[bufnr].buftype
 
             if not vim.list_contains(opts.buftype_blacklist, bt) then
                 table.insert(buf_list, bufnr)
@@ -73,10 +73,8 @@ M.get_win_count = function(index)
         if opts.count_others then
             -- if blacklisted buftype is currently focused, the [+x] doesn't make sense, so
             -- we kind of count it anyway
-            local focused_bt = vim.api.nvim_get_option_value(
-                'buftype',
-                { buf = vim.api.nvim_win_get_buf(vim.api.nvim_tabpage_get_win(index)) }
-            )
+            local focused_bufnr = vim.api.nvim_win_get_buf(vim.api.nvim_tabpage_get_win(index))
+            local focused_bt = vim.bo[focused_bufnr].buftype
             if vim.list_contains(opts.buftype_blacklist, focused_bt) then
                 return string.format(' [+%s]', counted)
             else
