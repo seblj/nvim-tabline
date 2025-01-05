@@ -2,6 +2,10 @@ local M = {}
 local config = require('tabline.config')
 
 M.get_item = function(group, item, index, modified)
+    if item == '' then
+        return ''
+    end
+
     local active = index == vim.fn.tabpagenr()
     if modified then
         group = group .. 'Modified'
