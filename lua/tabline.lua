@@ -3,13 +3,14 @@ local icons = require('tabline.icons')
 local utils = require('tabline.utils')
 local opt
 
-local gen_item = function(index, tabpage_handle)
+local gen_item = function(index)
     local winnr = vim.fn.tabpagewinnr(index)
     local bufnr = vim.fn.tabpagebuflist(index)[winnr]
     local bufname = vim.fn.bufname(bufnr)
     local bufmodified = vim.fn.getbufvar(bufnr, '&mod') == 1
     local tabname = utils.get_tabname(bufname, index)
     local extension = vim.fn.fnamemodify(bufname, ':e')
+    local tabpage_handle = vim.api.nvim_list_tabpages()[index]
 
     local win_count = opt.show_window_count.enable and utils.get_win_count(tabpage_handle) or ''
     local padding = string.rep(' ', opt.padding)
@@ -44,8 +45,8 @@ local tabline = function()
     local last_index = vim.fn.tabpagenr('$')
 
     local s = ''
-    for index, tabpage_handle in ipairs(vim.api.nvim_list_tabpages()) do
-        local item = gen_item(index, tabpage_handle)
+    for index = 1, last_index do
+        local item = gen_item(index)
 
         local right_sep = index == last_index and opt.right_separator and opt.separator or ''
         s = s .. item .. utils.get_hl('TabLineSeparator', right_sep)
