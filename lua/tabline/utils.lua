@@ -34,7 +34,7 @@ M.get_tabname = function(bufname, index)
     return vim.fn.fnamemodify(bufname, ':t')
 end
 
-M.is_focusable = function(win_id)
+local is_focusable = function(win_id)
     return vim.api.nvim_win_get_config(win_id).focusable
 end
 
@@ -45,7 +45,7 @@ M.get_win_count = function(index)
     local opts = config.get('show_window_count')
 
     for _, win_id in pairs(win_list) do
-        if M.is_focusable(win_id) then
+        if is_focusable(win_id) then
             local bufnr = vim.api.nvim_win_get_buf(win_id)
             local bt = vim.api.nvim_get_option_value('buftype', { buf = bufnr })
 
