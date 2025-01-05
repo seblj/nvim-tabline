@@ -15,7 +15,11 @@ local gen_item = function(index, tabpage_handle)
     local padding = string.rep(' ', opt.padding)
     local left_sep = opt.separator
     local modified_icon = bufmodified and opt.modified_icon .. ' ' or ''
-    local close_icon = opt.close_icon
+    local close_icon = not bufmodified and opt.close_icon or ''
+    if close_icon and close_icon ~= '' then
+        local hl_icon = utils.get_hl('TabLineClose', close_icon, index, bufmodified)
+        close_icon = '%' .. index .. 'X' .. hl_icon .. '%X '
+    end
 
     if opt.show_index then
         tabname = index .. ' ' .. tabname
@@ -23,14 +27,14 @@ local gen_item = function(index, tabpage_handle)
 
     -- stylua: ignore
     local tabline_items = {
-        utils.get_item('TabLineSeparator', left_sep, index),            -- Left separator
-        utils.get_item('TabLinePadding', padding, index),               -- Padding
+        utils.get_hl('TabLineSeparator', left_sep, index),            -- Left separator
+        utils.get_hl('TabLinePadding', padding, index),               -- Padding
         icons.get_devicon(index, bufname, extension),                   -- DevIcon
-        utils.get_item('TabLine', tabname, index),                      -- Tabname (default to filename)
-        utils.get_item('TabLine', win_count, index),                    -- window count
-        utils.get_item('TabLinePadding', padding, index),               -- Padding
-        utils.get_item('TabLine', modified_icon, index, bufmodified),   -- Modified icon
-        utils.get_item('TabLineClose', close_icon, index, bufmodified), -- Closing icon
+        utils.get_hl('TabLine', tabname, index),                      -- Tabname (default to filename)
+        utils.get_hl('TabLine', win_count, index),                    -- window count
+        utils.get_hl('TabLinePadding', padding, index),               -- Padding
+        utils.get_hl('TabLine', modified_icon, index, bufmodified),   -- Modified icon
+        close_icon,                                                   -- Closing icon
     }
     -- makes tab clickable
     return '%' .. index .. 'T' .. table.concat(tabline_items) .. '%T'
@@ -44,7 +48,7 @@ local tabline = function()
         local item = gen_item(index, tabpage_handle)
 
         local right_sep = index == last_index and opt.right_separator and opt.separator or ''
-        s = s .. item .. utils.get_item('TabLineSeparator', right_sep)
+        s = s .. item .. utils.get_hl('TabLineSeparator', right_sep)
     end
     return s
 end

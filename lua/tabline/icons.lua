@@ -23,7 +23,7 @@ M.get_devicon = function(index, bufname, extension)
             or color
 
         vim.api.nvim_set_hl(0, icon_hl, { fg = inactive_color, bg = hl.get_bg(false) })
-        return utils.get_item(icon_hl, icon, index)
+        return utils.get_hl(icon_hl, icon, index)
     end
     return ''
 end

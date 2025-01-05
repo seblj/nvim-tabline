@@ -1,7 +1,7 @@
 local M = {}
 local config = require('tabline.config')
 
-M.get_item = function(group, item, index, modified)
+M.get_hl = function(group, item, index, modified)
     if item == '' then
         return ''
     end
@@ -12,16 +12,6 @@ M.get_item = function(group, item, index, modified)
     end
     if active then
         group = group .. 'Sel'
-    end
-
-    -- Special case for close icon
-    if group:match('TabLineClose') then
-        if modified or item == '' then
-            return ''
-        end
-
-        local icon = '%#' .. group .. '#' .. item .. '%*'
-        return '%' .. index .. 'X' .. icon .. '%X '
     end
 
     return '%#' .. group .. '#' .. item .. '%*'
