@@ -8,7 +8,7 @@ local tabline = function()
     local last_index = vim.fn.tabpagenr('$')
 
     local s = ''
-    for index = 1, last_index do
+    for index, tabpage_handle in pairs(vim.api.nvim_list_tabpages()) do
         local winnr = vim.fn.tabpagewinnr(index)
         local bufnr = vim.fn.tabpagebuflist(index)[winnr]
         local bufname = vim.fn.bufname(bufnr)
@@ -16,6 +16,7 @@ local tabline = function()
         local tabname = utils.get_tabname(bufname, index)
         local extension = vim.fn.fnamemodify(bufname, ':e')
 
+        local win_count = config.get('show_window_count').enable and utils.get_win_count(tabpage_handle) or ''
         local padding = string.rep(' ', opt.padding)
         local left_sep = config.get('separator')
         local right_sep = index == last_index and config.get('right_separator') and left_sep or ''
@@ -35,6 +36,7 @@ local tabline = function()
             utils.get_item('TabLinePadding', padding, index),               -- Padding
             icons.get_devicon(index, bufname, extension),                   -- DevIcon
             utils.get_item('TabLine', tabname, index),                      -- Tabname (default to filename)
+            utils.get_item('TabLine', win_count, index),                    -- window count
             utils.get_item('TabLinePadding', padding, index),               -- Padding
             utils.get_item('TabLine', modified_icon, index, bufmodified),   -- Modified icon
             utils.get_item('TabLineClose', close_icon, index, bufmodified), -- Closing icon

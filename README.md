@@ -29,6 +29,18 @@ Plug 'nvim-tree/nvim-web-devicons'             " Optional
 call plug#end()
 ```
 
+### lazy.nvim
+
+```lua
+return {
+    "seblj/nvim-tabline",
+    dependencies = { "nvim-tree/nvim-web-devicons" }, -- Optional
+    opts = {
+        ... -- see options below
+    }
+}
+```
+
 ## Setup
 
 ```lua
@@ -42,6 +54,13 @@ require('tabline').setup({
     right_separator = false,  -- Show right separator on the last tab
     show_index = false,       -- Shows the index of tab before filename
     show_icon = true,         -- Shows the devicon
+    show_window_count = {
+        enable = false,                    -- Shows the number of windows in tab after filename  
+        show_if_alone = false,             -- do not show count if unique win in a tab
+        count_unique_buf = true,           -- count only win showing different buffers
+        count_others = true,               -- display [+x] where x is the number of other windows
+        buftype_blacklist = { 'nofile' },  -- do not count if buftype among theses
+    },
 })
 ```
 
