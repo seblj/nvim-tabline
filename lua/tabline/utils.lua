@@ -32,6 +32,10 @@ local is_focusable = function(win_id)
     return vim.api.nvim_win_get_config(win_id).focusable
 end
 
+M.eval_len = function(str)
+    return vim.api.nvim_eval_statusline(str, { maxwidth = 1600, use_winbar = true }).width
+end
+
 M.get_win_count = function(index)
     local win_list = vim.api.nvim_tabpage_list_wins(index)
 

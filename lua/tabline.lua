@@ -2,8 +2,12 @@ local M = {}
 local icons = require('tabline.icons')
 local utils = require('tabline.utils')
 local opt
+local fix_item_len
 
-local gen_item = function(index)
+-- Return one tab item, optionally truncated with max_len (in columns).
+-- Minimal size depends on config and modified icon in such a way that we cannot
+-- garentee the final size.
+local gen_item = function(index, max_len)
     local winnr = vim.fn.tabpagewinnr(index)
     local bufnr = vim.fn.tabpagebuflist(index)[winnr]
     local bufname = vim.fn.bufname(bufnr)
@@ -26,11 +30,30 @@ local gen_item = function(index)
         tabname = index .. ' ' .. tabname
     end
 
+    -- Compute length and adapt if necessary
+    if max_len then
+        local tabname_len = utils.eval_len(tabname)
+        local win_count_len = utils.eval_len(win_count)
+        local icon_len = utils.eval_len(modified_icon .. close_icon)
+        if (fix_item_len + tabname_len + win_count_len + icon_len) >= max_len then
+            if (fix_item_len + 2 + win_count_len + icon_len) >= max_len and win_count_len > 0 then
+                win_count = ''
+                win_count_len = 0
+            end
+            local trunc = max_len - fix_item_len - win_count_len - icon_len
+            if trunc <= 0 then
+                tabname = '..'
+            else
+                tabname = tabname:sub(1, trunc) .. '..'
+            end
+        end
+    end
+
     -- stylua: ignore
     local tabline_items = {
         utils.get_hl('TabLineSeparator', left_sep, index),            -- Left separator
         utils.get_hl('TabLinePadding', padding, index),               -- Padding
-        icons.get_devicon(index, bufname, extension),                   -- DevIcon
+        icons.get_devicon(index, bufname, extension),                 -- DevIcon
         utils.get_hl('TabLine', tabname, index),                      -- Tabname (default to filename)
         utils.get_hl('TabLine', win_count, index),                    -- window count
         utils.get_hl('TabLinePadding', padding, index),               -- Padding
@@ -38,7 +61,8 @@ local gen_item = function(index)
         close_icon,                                                   -- Closing icon
     }
     -- makes tab clickable
-    return '%' .. index .. 'T' .. table.concat(tabline_items) .. '%T'
+    local full_item = '%' .. index .. 'T' .. table.concat(tabline_items) .. '%T'
+    return full_item
 end
 
 local tabline = function()
@@ -57,6 +81,14 @@ end
 M.setup = function(user_options)
     local config = require('tabline.config')
     opt = config.set(user_options)
+
+    -- Compute fixed but config dependent size
+    local sep_len = utils.eval_len(opt.separator .. string.rep(' ', opt.padding))
+    fix_item_len = sep_len + (opt.show_icon and 2 or 0) + opt.padding
+    if opt.close_icon ~= '' then
+        fix_item_len = fix_item_len + utils.eval_len(opt.close_icon .. ' ')
+    end
+
     function _G.nvim_tabline()
         return tabline()
     end
