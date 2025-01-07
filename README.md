@@ -61,6 +61,14 @@ require('tabline').setup({
         count_others = true,               -- display [+x] where x is the number of other windows
         buftype_blacklist = { 'nofile' },  -- do not count if buftype among theses
     },
+    -- Control the truncation algorithm.
+    -- Big numbers will tend to show more tabs agressively trucated, while small number will
+    -- tend to have less truncated tabs around active one at the cost of displaying less tabs.
+    -- Caution : the algorithm is iterative and becomes inefficient on both ends
+    -- (i.e really big or really close to 0 slopes, keep between 0.01 and 100)
+    truncation_slope = 0.8,
+    tab_on_right_icon = ' >',
+    tab_on_left_icon = '< ',
 })
 ```
 
