@@ -28,7 +28,7 @@ Check that fork out for some cool features like
 ### packer.nvim
 
 ```lua
-use({ 'seblj/nvim-tabline', requires = { 'nvim-tree/nvim-web-devicons' } })
+use({ 'seblyng/nvim-tabline', requires = { 'nvim-tree/nvim-web-devicons' } })
 ```
 
 ### vim-plug
@@ -36,7 +36,7 @@ use({ 'seblj/nvim-tabline', requires = { 'nvim-tree/nvim-web-devicons' } })
 ```vim
 call plug#begin()
 
-Plug 'seblj/nvim-tabline'
+Plug 'seblyng/nvim-tabline'
 Plug 'nvim-tree/nvim-web-devicons'             " Optional
 
 call plug#end()
@@ -46,7 +46,7 @@ call plug#end()
 
 ```lua
 return {
-    'seblj/nvim-tabline',
+    'seblyng/nvim-tabline',
     dependencies = { 'nvim-tree/nvim-web-devicons' }, -- Optional
     opts = {
         ..., -- see options below
